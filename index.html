@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Template &middot; Bootstrap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.css" />
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.ie.css" />
+    <![endif]-->
+    <style type="text/css">
+      body {
+        padding-top: 20px;
+        padding-bottom: 40px;
+      }
+
+      /* Custom container */
+      .container-narrow {
+        margin: 0 auto;
+        max-width: 700px;
+      }
+      .container-narrow > hr {
+        margin: 30px 0;
+      }
+
+      /* Main marketing message and sign up button */
+      .jumbotron {
+        margin: 30px 0;
+        text-align: center;
+      }
+      .jumbotron h1 {
+        font-size: 72px;
+        line-height: 1;
+      }
+      .jumbotron .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+      }
+
+      /* Supporting marketing content */
+      .marketing {
+        margin: 30px 0;
+      }
+      .marketing p + h4 {
+        margin-top: 28px;
+      }
+      #float {
+        position: absolute;
+        margin-left: 22%;
+        margin-top: -10%;
+      }
+
+      .geolocation {
+        position: absolute;
+        margin-left: 10px;
+        margin-top: -44%;
+        padding: 5px;
+        background: rgba(0, 0, 0, 0.25);
+        border-radius: 7px;
+        -moz-border-radius: 7px;
+        -webkit-border-radius: 7px;
+        color: rgba(255, 255, 255, 1);
+        z-index: 100;
+      }
+
+      .geolocation a {
+        background-color: rgba(255, 255, 255, 0.75);
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        background-image: url(img/location.png);
+        display: block;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        width: 19px;
+        height: 19px;
+      }
+
+      .item {
+        float: left;
+        display: none;
+        height: 64px;
+        width: 64px;
+        color: #fff;
+        /*line-height: 64px;*/
+        text-align: center;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        background: #222;
+      }
+
+      #cascade-wrap {
+        display: inline-block;
+      }
+
+
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="shortcut icon" href="ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">-->
+  </head>
+
+  <body>
+
+    <div class="container-narrow">
+
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="index.html">首页</a></li>
+          <li><a href="about.html">关于</a></li>
+          <li><a href="report.html">报告瞄准</a></li>
+          <li><a href="http://weibo.com/1827652007/5en0QRpsH30" target="_blank">根源</a></li>
+        </ul>
+        <h3 class="muted">ZhiZe</h3>
+      </div>
+
+      <hr>
+
+      <div class="jumbotron">
+        <div id ="alertmessage">
+          <div id="alertloading">
+            <div class="alert">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>Loading... </strong><a href="about.html#data">Why is the data not showing up?</a>
+            </div>
+          </div>
+        </div>
+        <div id="leafletmap" style="width: 100%; height: 400px"></div>
+        <div class="geolocation">
+          <a href="#" onclick="geoLocate(); return false;" title="My Location"></a>
+        </div>
+            <script src="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js"></script>
+        <div id="float"><a class="btn btn-large btn-success" href="report.html">报告瞄准</a></div>
+      </div>
+
+      <hr>
+
+      <div class="row-fluid marketing">
+        <div class="span6">
+          <h4>Latest Sightings</h4>
+          <p>Click on the image to view in map</p>
+          <div id="cascade-wrap"></div>
+          <div id="statelist_table"></div>
+        </div>
+
+        <div class="span6">
+          <h4>Subheading</h4>
+          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+          <h4>Subheading</h4>
+          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="footer">
+        <p>An Open Data Initiative</p>
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <script type="text/javascript" src="js/tabletop.js"></script>
+
+    <script>
+/*=================== Map Setup ========================================*/
+
+    var map = L.map('leafletmap').setView([31.231385331622466, 121.47982519245147], 13);
+
+    L.tileLayer('http://{s}.tile.cloudmade.com/{key}/22677/256/{z}/{x}/{y}.png', {
+      //attribution: 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2012 CloudMade',
+      key: 'BC9A493B41014CAABB98F0471D759707'
+    }).addTo(map);
+
+    // Geolocation
+    function onLocationFound(e) {
+      var radius = e.accuracy / 2;
+
+      L.marker(e.latlng).addTo(map)
+        .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+      L.circle(e.latlng, radius).addTo(map);
+    }
+
+    function onLocationError(e) {
+      alert(e.message);
+    }
+
+    map.on('locationfound', onLocationFound);
+    map.on('locationerror', onLocationError);
+
+    function geoLocate(){
+      map.locate({setView: true, maxZoom: 16});
+    }
+/*=================== Map Setup End =====================================*/
+
+    var geojsonfeatures = [];
+
+/*==================== TableTop =========================================*/
+    window.onload = function() { init() };
+
+    var public_spreadsheet_url = 'https://docs.google.com/spreadsheet/pub?key=0AuT3j4L_PY-vdEZ2QVFYRlJfejliZnpJT0p5Y1gwWUE&output=html';
+
+    function init() {
+      a = Tabletop.init( { 
+        key: public_spreadsheet_url,
+        callback: showInfo,
+        simpleSheet: true,
+        debug: false 
+      } )
+    }
+
+    // Tabletop
+    function showInfo(data, tabletop) {
+
+      // Replace Alert Message with Success
+      var success = document.createElement('div');
+          success.setAttribute('class', 'alert alert-success');
+      var button = document.createElement('button');
+          button.setAttribute('type','button')
+          button.setAttribute('class','close');
+          button.setAttribute('data-dismiss','alert');
+      var close = document.createTextNode('x');
+      var warning = document.createTextNode('Data Successfully Transmitted!');
+
+      button.appendChild(close);
+      success.appendChild(button);
+      success.appendChild(warning);
+
+      document.getElementById('alertmessage').removeChild(alertloading);
+      document.getElementById('alertmessage').appendChild(success);
+      // Replace Alert Message End
+
+
+      for(var i = 0; i < data.length; i++) {
+        //var item = data[i];
+        //console.log(item);
+        geojsonfeatures.push({ 
+
+          "type": "Feature",
+          "properties": {
+            "name": data[i].city,
+            "amenity": "Baseball Stadium",
+            "popupContent": data[i].description,
+            "image": data[i].imagesrc
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [data[i].lon, data[i].lat]
+          }
+        });
+      }
+
+      function onEachFeature(feature, layer) {
+        var popupContent = "<p>I started out as a GeoJSON </p> "+
+            feature.properties.name + '<img src="' + feature.properties.image + '" width="150" height="150">';
+
+        if (feature.properties && feature.properties.popupContent) {
+          popupContent += feature.properties.popupContent;
+        }
+
+        layer.bindPopup(popupContent);
+      }
+
+      var geojson = L.geoJson(geojsonfeatures, {
+            onEachFeature: onEachFeature
+        }).addTo(map);
+
+      //
+      //Jquery method of cascading fadein image loading
+      var items = [];
+      for(var num = data.length; num > 0; num--){
+        items.push(geojsonfeatures[num-1].properties.image);
+      }
+      // time of delay between items in ms
+      var delay = 400;
+      // Loop through it with jQuery.each()
+      $(items).each(function(i, text){
+        item = $('<img>');
+        $(item).addClass('item');
+        $(item).attr('src', text);
+        $(item).css({
+          'display': 'none'
+        });
+        $(item).delay(i * delay).fadeIn();
+        $('#cascade-wrap').append(item);
+      });
+
+      /*
+      //Counter to determine number of elements in geojson._layers
+      var count;
+      count = 0;
+      for (each in geojson._layers) {
+        count++;      
+      }
+      console.log(count);
+      */
+
+      // Determine highest id assigned to leaflet markers
+      // highest so far corresponds with most recent
+      for (each in geojson._layers) {
+      }
+      // how many 'latest' points you want displayed
+      var limit = 5;
+      // declare count for delay between each item
+      var count = 0;
+      // delay between each item
+      var delay = 400;
+      for (var i = each; i > (each-limit); i--) {
+
+        var id = geojson._layers[i]._leaflet_id;
+        var name = geojson._layers[i].feature.properties.name;
+        var image = geojson._layers[i].feature.properties.image;
+        //var bbox = geojson._layers[each].getBounds().toBBoxString();
+
+        // Populate with image links
+        item = $('<img>');
+        $(item).attr('src', image);
+
+        link = $('<a></a>');
+        $(link).addClass('item');
+        $(link).attr('href', '#');
+        $(link).attr('onclick', 'map._layers['+id+'].openPopup(); map._layers['+id+']._popup.setLatLng(map._layers['+id+'].getBounds().getCenter()); return false;');
+
+        $(link).css({
+          'display': 'none'
+        });
+        $(link).append(item);
+        $(link).delay(count * delay).fadeIn();
+        $('#statelist_table').append(link);
+
+        count++;
+      }
+
+    }
+/*==================== TableTop End =====================================*/
+    </script>
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/tabletop.js"></script>
+
+  </body>
+</html>
+
+<!-- Localized -->
